@@ -1,81 +1,81 @@
+#ifndef SKEW_HEAP_H
+#define SKEW_HEAP_H
+
 #include <iostream>
 #include <string>
+#include <algorithm> 
+
 using namespace std;
 
-// ===============================
-// ROL 1 – MODELADO DE DATOS Y ENTRADA DE INCIDENTES
-// ===============================
-
-// Estructura del incidente
-struct Incidente {
-    int prioridad;           // Menor número = mayor prioridad
-    string descripcion;
-    string ubicacion;
-
-    Incidente(int p = 0, string d = "", string u = "")
-        : prioridad(p), descripcion(d), ubicacion(u) {}
-};
-
-// Nodo del Skew Heap
-struct Nodo {
-    Incidente dato;
-    int npl;       // Null Path Length
-    Nodo* izq;
-    Nodo* der;
-
-    Nodo(Incidente i) : dato(i), npl(0), izq(nullptr), der(nullptr) {}
-};
-
-// Fusión de heaps (base del Skew Heap)
+// ROL 3 – FUSIÓN DE ZONAS (Parte 1: Implementación)
+//  Implementa la operación de merge entre dos heaps.
 Nodo* merge(Nodo* h1, Nodo* h2) {
     if (!h1) return h2;
     if (!h2) return h1;
 
-    // h1 debe tener menor prioridad (más urgente)
+    // 1. Asegurar que h1 tenga la mayor prioridad (menor valor)
     if (h1->dato.prioridad > h2->dato.prioridad)
         swap(h1, h2);
 
+    // 2. Fusión recursiva SIEMPRE por la derecha
     h1->der = merge(h1->der, h2);
 
-    int nplI = h1->izq ? h1->izq->npl : -1;
-    int nplD = h1->der ? h1->der->npl : -1;
+    // 3. Intercambio INCONDICIONAL (la clave del Skew Heap)
+    swap(h1->izq, h1->der);
 
-    if (nplI < nplD)
-        swap(h1->izq, h1->der);
-
-    h1->npl = (h1->der ? h1->der->npl : -1) + 1;
-
-    return h1;
+    return h1; // Devuelve la nueva raíz
 }
 
-// Inserción de incidentes (Integrante 1)
-Nodo* insertarIncidente(Nodo* heap, Incidente i) {
-    Nodo* nuevo = new Nodo(i);
-    heap = merge(heap, nuevo);
+//(Aquí van las demás funciones: insertarIncidente, atenderIncidente, etc.)
 
-    cout << " Incidente registrado: [" << i.prioridad << "] "
-         << i.descripcion << " (" << i.ubicacion << ")\n";
+#endif // SKEW_HEAP_H
+```eof
 
-    return heap;
-}
+### 2. Simula la fusión de dos zonas (Archivo `main.cpp`)
 
-// ===============================
-// ROL 2 – ATENCIÓN DE INCIDENTES
-// ===============================
+Esta parte, como bien dijiste, va en el **menú**. Se logra creando dos heaps (ej. `zonaCentro` y `zonaNorte`) y teniendo una opción en el menú que llame a la función `merge()` que acabamos de poner en el `.h`.
 
-// Extraer el incidente de mayor prioridad
-Nodo* atenderIncidente(Nodo* heap) {
-    if (!heap) {
-        cout << " No hay incidentes por atender.\n";
-        return nullptr;
+Este es el código que va en tu `main_skew.cpp`:
+
+```cpp:main_skew.cpp
+//(includes y funciones de leerEntero, leerTexto)
+
+void menuSimulacion() {
+    // Se crean dos zonas (dos heaps)
+    Nodo* zonaCentro = nullptr;
+    Nodo* zonaNorte = nullptr;
+
+    int opcion = -1;
+    while (opcion != 0) {
+        cout << "1. Registrar incidente (Zona Centro)" << endl;
+        cout << "2. Registrar incidente (Zona Norte)" << endl;
+        //(otras opciones)
+        cout << "7. FUSIONAR ZONAS (Norte -> Centro)" << endl; //  Simula la fusión de dos zonas
+        cout << "0. Salir" << endl;
+        opcion = leerEntero("Seleccione una opcion: ");
+
+        switch (opcion) {
+            //(casos 1 al 6) 
+
+            // ===================================
+            // ROL 3 – FUSIÓN DE ZONAS (Parte 2: Simulación)
+            // ===================================
+            case 7: 
+                cout << "\n FUSIONANDO ZONA NORTE CON ZONA CENTRO..." << endl;
+                // Se llama a la operación de merge
+                zonaCentro = merge(zonaCentro, zonaNorte);
+                zonaNorte = nullptr; // La zona norte queda vacía
+                cout << " ¡FUSION COMPLETADA! Todos los incidentes estan en Zona Centro.\n";
+                break;
+            // (caso 0 y default)
+        }
     }
-
-    cout << "\n Atendiendo incidente de mayor prioridad:\n";
-    cout << "Prioridad: " << heap->dato.prioridad << endl;
-    cout << "Descripción: " << heap->dato.descripcion << endl;
-    cout << "Ubicación: " << heap->dato.ubicacion << endl;
-
-    Nodo* nuevoHeap = merge(heap->izq, heap->der);
-    delete heap;
-    return nuevoHeap;
+    // (liberar memoria)
 }
+
+int main() {
+    menuSimulacion();
+    return 0;
+}
+
+
