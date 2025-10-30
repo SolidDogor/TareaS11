@@ -8,7 +8,7 @@
 using namespace std;
 
 // ROL 3 – FUSIÓN DE ZONAS 
-//  Implementa la operación de merge entre dos heaps.
+//  Se coloca la operación de merge entre dos heaps.
 Nodo* merge(Nodo* h1, Nodo* h2) {
     if (!h1) return h2;
     if (!h2) return h1;
