@@ -49,17 +49,14 @@ void menuSimulacion() {
         opcion = leerEntero("Seleccione una opcion: ");
 
         switch (opcion) {
-            //(casos 1 al 6) 
-
-            // ===================================
+            //(casos 1 al 6)
             // ROL 3 – FUSIÓN DE ZONAS (Parte 2: Simulación)
-            // ===================================
             case 7: 
                 cout << "\n FUSIONANDO ZONA NORTE CON ZONA CENTRO..." << endl;
-                // Se llama a la operación de merge
+                // Se llama merge
                 zonaCentro = merge(zonaCentro, zonaNorte);
                 zonaNorte = nullptr; // La zona norte queda vacía
-                cout << " ¡FUSION COMPLETADA! Todos los incidentes estan en Zona Centro.\n";
+                cout << " ¡FUSION COMPLETA! Todos los incidentes estan en Zona Centro.\n";
                 break;
             // (caso 0 y default)
         }
