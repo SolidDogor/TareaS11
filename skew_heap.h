@@ -33,10 +33,6 @@ Nodo* merge(Nodo* h1, Nodo* h2) {
 
 ### 2. Simula la fusión de dos zonas (Archivo `main.cpp`)
 
-Esta parte, como bien dijiste, va en el **menú**. Se logra creando dos heaps (ej. `zonaCentro` y `zonaNorte`) y teniendo una opción en el menú que llame a la función `merge()` que acabamos de poner en el `.h`.
-
-Este es el código que va en tu `main_skew.cpp`:
-
 ```cpp:main_skew.cpp
 //(includes y funciones de leerEntero, leerTexto)
 
