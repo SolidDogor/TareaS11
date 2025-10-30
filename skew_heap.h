@@ -26,8 +26,6 @@ Nodo* merge(Nodo* h1, Nodo* h2) {
     return h1; // Devuelve la nueva raíz
 }
 
-//(Aquí van las demás funciones: insertarIncidente, atenderIncidente, etc.)
-
 #endif // SKEW_HEAP_H
 ```eof
 
