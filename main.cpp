@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// ROL 4 – INTERFAZ DE SIMULACIÓN
+// INTERFAZ DE SIMULACIÓN
 
 // Función auxiliar para leer un entero de forma segura
 int leerEntero(string mensaje) {
@@ -37,7 +37,7 @@ void menuSimulacion() {
 
     int opcion = -1;
 
-    // 1. Crea un menú o interfaz de consola
+    //  Primero se crea un menú o interfaz de consola
     while (opcion != 0) {
         cout << "\n=============================================" << endl;
         cout << " SISTEMA DE GESTION DE EMERGENCIAS (Skew Heap)" << endl;
@@ -56,7 +56,7 @@ void menuSimulacion() {
         cout << "---------------------------------------------" << endl;
         opcion = leerEntero("Seleccione una opcion: ");
 
-        // 2. Permite al usuario simular
+        // Permite al usuario simular
         switch (opcion) {
             case 1: // Simular llegada de incidentes (Centro)
             case 4: { // Simular llegada de incidentes (Norte)
@@ -102,7 +102,7 @@ void menuSimulacion() {
         }
     }
 
-    // Liberar toda la memoria antes de salir
+    // Liberar memoria antes de salir
     liberarHeap(zonaCentro);
     liberarHeap(zonaNorte);
     cout << "Sistema apagado. Memoria liberada." << endl;
@@ -110,6 +110,6 @@ void menuSimulacion() {
 
 // Punto de entrada principal
 int main() {
-    menuSimulacion(); // Llama a la interfaz de simulación
+    menuSimulacion(); 
     return 0;
 }
